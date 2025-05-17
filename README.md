@@ -5,7 +5,7 @@
 - Created linear data structures  
 - Applied basic algorithms  
 - Applied functional programming techniques  
-- Handled data streams, files, and directories  
+- Handled data streams, files and directories  
 - Worked with classes and created template classes
 
 **Tasks:**
