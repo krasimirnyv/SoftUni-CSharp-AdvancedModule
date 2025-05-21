@@ -1,12 +1,12 @@
 # SoftUni-CSharp-AdvancedModule
 
 **Learned Skills:**
-- Worked with multidimensional and associative data structures  
-- Created linear data structures  
-- Applied basic algorithms  
-- Applied functional programming techniques  
-- Handled data streams, files and directories  
-- Worked with classes and created template classes
+- Working with multidimensional and associative data structures  
+- Creating linear data structures  
+- Аpplying basic algorithms  
+- Аpplying functional programming techniques  
+- Handling data streams, files and directories  
+- Working with classes and created template classes
 
 **Tasks:**
 
