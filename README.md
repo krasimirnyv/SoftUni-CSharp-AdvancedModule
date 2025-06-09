@@ -22,6 +22,10 @@
 
 6. Defining Classes
 
-7. Generics
+7. Workshops
+- Implementing Linked List
+- Implementing Stack and Queue
 
-8. Iterators and Comparators
+8. Generics
+
+10. Iterators and Comparators
