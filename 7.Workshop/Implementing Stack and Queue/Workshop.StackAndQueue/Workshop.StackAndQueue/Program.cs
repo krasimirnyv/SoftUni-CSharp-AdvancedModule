@@ -12,7 +12,7 @@ class Program
 
     private static void MyStack()
     {
-        MyStack stack = new MyStack();
+        MyStack<int> stack = new MyStack<int>();
         for (int i = 0; i < 10; i++)
         {
             stack.Push(Random.Shared.Next(0, 100));
@@ -41,7 +41,7 @@ class Program
 
     private static void MyLinkedStack()
     {
-        MyLinkedStack linkedStack = new MyLinkedStack();
+        MyLinkedStack<int> linkedStack = new MyLinkedStack<int>();
         for (int i = 0; i < 10; i++)
         {
             linkedStack.Push(Random.Shared.Next(0, 100));
@@ -70,7 +70,7 @@ class Program
 
     private static void MyQueue()
     {
-        MyQueue queue = new MyQueue();
+        MyQueue<int> queue = new MyQueue<int>();
         
         for (int t = 0; t < 3; t++)
         {
@@ -84,6 +84,7 @@ class Program
                     Console.WriteLine(string.Join(", ", queue.ToArray()));
                 }
 
+                Console.WriteLine($"Peeked: {queue.Peek()}");
                 for (int j = 0; j <= i; j++)
                 {
                     Console.WriteLine($"Dequeue {queue.Dequeue()}");
@@ -99,7 +100,7 @@ class Program
 
     private static void MyLinkedQueue()
     {
-        MyLinkedQueue linkedQueue = new MyLinkedQueue();
+        MyLinkedQueue<int> linkedQueue = new MyLinkedQueue<int>();
 
         for (int t = 0; t < 3; t++)
         {
@@ -113,6 +114,7 @@ class Program
                     Console.WriteLine(string.Join(", ", linkedQueue.ToArray()));
                 }
 
+                Console.WriteLine($"Peeked: {linkedQueue.Peek()}");
                 for (int j = 0; j <= i; j++)
                 {
                     Console.WriteLine($"Dequeue {linkedQueue.Dequeue()}");

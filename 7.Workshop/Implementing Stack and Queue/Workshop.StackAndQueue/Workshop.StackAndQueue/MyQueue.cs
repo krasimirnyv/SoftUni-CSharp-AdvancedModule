@@ -1,10 +1,10 @@
 namespace Workshop.StackAndQueue;
 
-public class MyQueue
+public class MyQueue<TValue>
 {
     private const int DefaultCapacity = 4;
  
-    private int[] _buffer;
+    private TValue[] _buffer;
     private int _count, _start;
  
     public MyQueue() : this(DefaultCapacity)
@@ -13,10 +13,10 @@ public class MyQueue
  
     public MyQueue(int capacity)
     {
-        this._buffer = new int[capacity];
+        this._buffer = new TValue[capacity];
     }
  
-    public void Enqueue(int value)
+    public void Enqueue(TValue value)
     {
         this.GrowIfNecessary();
  
@@ -25,17 +25,17 @@ public class MyQueue
         this._count++;
     }
  
-    public int Peek()
+    public TValue Peek()
     {
         this.ValidateNotEmpty();
         return this._buffer[this._start];
     }
  
-    public int Dequeue()
+    public TValue Dequeue()
     {
         this.ValidateNotEmpty();
  
-        int removedVal = this._buffer[this._start];
+        TValue removedVal = this._buffer[this._start];
         this._buffer[this._start] = default;
  
         this._start = this.GetBufferIndex(1);
@@ -44,9 +44,9 @@ public class MyQueue
         return removedVal;
     }
  
-    public int[] ToArray()
+    public TValue[] ToArray()
     {
-        int[] result = new int[this._count];
+        TValue[] result = new TValue[this._count];
  
         for (int i = 0; i < this._count; i++)
             result[i] = this._buffer[GetBufferIndex(i)];
@@ -67,7 +67,7 @@ public class MyQueue
     {
         if (this._count < this._buffer.Length) return;
  
-        int[] newBuffer = new int[this._buffer.Length * 2];
+        TValue[] newBuffer = new TValue[this._buffer.Length * 2];
  
         int rotate = this._buffer.Length - this._start;
         Array.Copy(this._buffer, this._start, newBuffer, 0, rotate);

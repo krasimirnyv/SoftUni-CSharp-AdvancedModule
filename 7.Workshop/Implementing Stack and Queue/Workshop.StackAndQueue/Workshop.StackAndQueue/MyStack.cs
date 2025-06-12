@@ -1,10 +1,10 @@
 namespace Workshop.StackAndQueue;
 
-public class MyStack
+public class MyStack<TValue>
 {
     private const int DefaultCapacity = 4;
  
-    private int[] _buffer;
+    private TValue[] _buffer;
     private int _count;
  
     public MyStack() : this(DefaultCapacity)
@@ -13,10 +13,10 @@ public class MyStack
  
     public MyStack(int capacity)
     {
-        this._buffer = new int[capacity];
+        this._buffer = new TValue[capacity];
     }
  
-    public void Push(int value)
+    public void Push(TValue value)
     {
         this.GrowIfNecessary();
  
@@ -24,16 +24,16 @@ public class MyStack
         this._count++;
     }
  
-    public int Peek()
+    public TValue Peek()
     {
         this.ValidateNotEmpty();
         return this._buffer[this._count - 1];
     }
  
-    public int Pop()
+    public TValue Pop()
     {
         this.ValidateNotEmpty();
-        int poppedValue = this._buffer[this._count - 1];
+        TValue poppedValue = this._buffer[this._count - 1];
  
         this._buffer[this._count - 1] = default;
         this._count--;
@@ -41,9 +41,9 @@ public class MyStack
         return poppedValue;
     }
  
-    public int[] ToArray()
+    public TValue[] ToArray()
     {
-        int[] result = new int[this._count];
+        TValue[] result = new TValue[this._count];
         Array.Copy(this._buffer, result, this._count);
         Array.Reverse(result);
         return result;
@@ -59,7 +59,7 @@ public class MyStack
     {
         if (this._count < this._buffer.Length) return;
  
-        int[] newBuffer = new int[this._buffer.Length * 2];
+        TValue[] newBuffer = new TValue[this._buffer.Length * 2];
         Array.Copy(this._buffer, newBuffer, this._buffer.Length);
         this._buffer = newBuffer;
     }

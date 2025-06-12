@@ -1,39 +1,39 @@
 namespace Workshop.StackAndQueue;
 
-public class MyLinkedQueue
+public class MyLinkedQueue<TValue>
 {
-    private readonly MyLinkedQueueNode _begin;
-    private MyLinkedQueueNode _end;
+    private readonly MyLinkedQueueNode<TValue> _begin;
+    private MyLinkedQueueNode<TValue> _end;
     private int _count;
  
     public MyLinkedQueue()
     {
-        this._begin = new MyLinkedQueueNode();
+        this._begin = new MyLinkedQueueNode<TValue>();
         this._end = this._begin;
     }
  
-    public void Enqueue(int value)
+    public void Enqueue(TValue value)
     {
-        MyLinkedQueueNode newNode = new MyLinkedQueueNode { Value = value };
+        MyLinkedQueueNode<TValue> newNode = new MyLinkedQueueNode<TValue> { Value = value };
         this._end.Next = newNode;
         this._end = newNode;
  
         this._count++;
     }
  
-    public int Peek()
+    public TValue Peek()
     {
         this.ValidateNotEmpty();
         return this._begin.Next.Value;
     }
  
-    public int Dequeue()
+    public TValue Dequeue()
     {
         this.ValidateNotEmpty();
  
-        MyLinkedQueueNode nodeToRemove = this._begin.Next;
+        MyLinkedQueueNode<TValue> nodeToRemove = this._begin.Next;
  
-        int removedValue = nodeToRemove.Value;
+        TValue removedValue = nodeToRemove.Value;
         nodeToRemove.Value = default;
  
         this._begin.Next = nodeToRemove.Next;
@@ -46,11 +46,11 @@ public class MyLinkedQueue
         return removedValue;
     }
  
-    public int[] ToArray()
+    public TValue[] ToArray()
     {
-        int[] result = new int[this._count];
+        TValue[] result = new TValue[this._count];
  
-        MyLinkedQueueNode iter = this._begin.Next;
+        MyLinkedQueueNode<TValue> iter = this._begin.Next;
         for (int i = 0; i < this._count; i++, iter = iter.Next)
             result[i] = iter.Value;
  
@@ -64,8 +64,8 @@ public class MyLinkedQueue
     }
 }
  
-public class MyLinkedQueueNode
+public class MyLinkedQueueNode<TValue>
 {
-    public int Value { get; set; }
-    public MyLinkedQueueNode Next { get; set; }
+    public TValue Value { get; set; }
+    public MyLinkedQueueNode<TValue> Next { get; set; }
 }

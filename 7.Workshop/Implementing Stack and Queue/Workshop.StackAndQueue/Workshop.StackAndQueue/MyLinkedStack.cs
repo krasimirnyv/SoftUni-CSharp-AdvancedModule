@@ -1,29 +1,29 @@
 namespace Workshop.StackAndQueue;
 
-public class MyLinkedStack
+public class MyLinkedStack<TValue>
 {
-    private readonly MyLinkedStackNode _begin = new MyLinkedStackNode();
+    private readonly MyLinkedStackNode<TValue> _begin = new MyLinkedStackNode<TValue>();
     private int _count;
  
-    public void Push(int value)
+    public void Push(TValue value)
     {
-        this._begin.Next = new MyLinkedStackNode { Value = value, Next = this._begin.Next };
+        this._begin.Next = new MyLinkedStackNode<TValue> { Value = value, Next = this._begin.Next };
         this._count++;
     }
  
-    public int Peek()
+    public TValue Peek()
     {
         this.ValidateNotEmpty();
         return this._begin.Next.Value;
     }
  
-    public int Pop()
+    public TValue Pop()
     {
         this.ValidateNotEmpty();
  
-        MyLinkedStackNode nodeToRemove = this._begin.Next;
+        MyLinkedStackNode<TValue> nodeToRemove = this._begin.Next;
         this._begin.Next = nodeToRemove.Next;
-        int poppedValue = nodeToRemove.Value;
+        TValue poppedValue = nodeToRemove.Value;
  
         nodeToRemove.Next = null;
         nodeToRemove.Value = default;
@@ -33,11 +33,11 @@ public class MyLinkedStack
         return poppedValue;
     }
  
-    public int[] ToArray()
+    public TValue[] ToArray()
     {
-        int[] result = new int[this._count];
+        TValue[] result = new TValue[this._count];
  
-        MyLinkedStackNode iter = this._begin.Next;
+        MyLinkedStackNode<TValue> iter = this._begin.Next;
         for (int i = 0; i < this._count; i++, iter = iter.Next)
             result[i] = iter.Value;
  
@@ -51,8 +51,8 @@ public class MyLinkedStack
     }
 }
  
-public class MyLinkedStackNode
+public class MyLinkedStackNode<TValue>
 {
-    public int Value { get; set; }
-    public MyLinkedStackNode Next { get; set; }
+    public TValue Value { get; set; }
+    public MyLinkedStackNode<TValue> Next { get; set; }
 }
