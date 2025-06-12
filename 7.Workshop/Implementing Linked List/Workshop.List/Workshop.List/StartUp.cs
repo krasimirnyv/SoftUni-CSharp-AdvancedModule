@@ -1,16 +1,16 @@
-﻿namespace Workshop.List;
+﻿namespace CustomDoublyLinkedList;
 
-class Program
+public class StartUp
 {
-    static void Main(string[] args)
+    public static void Main(string[] args)
     {
         MyList();
         MyLinkedList();
     }
 
-    private static void MyList()
+    public static void MyList()
     {
-        MyList myList = new MyList();
+        MyList<int> myList = new MyList<int>();
         
         for (int i = 1; i <= 100; i++)
             myList.Add(Random.Shared.Next(0, 1000) + 1);
@@ -33,13 +33,13 @@ class Program
         Console.WriteLine();
     }
     
-    private static void MyLinkedList()
+    public static void MyLinkedList()
     {
-        MyLinkedList myLinkedList = new MyLinkedList();
+        DoublyLinkedList<int> myLinkedList = new DoublyLinkedList<int>();
         for (int i = 0; i < 20; i++) 
         {
-            if (i % 2 == 0) myLinkedList.AddFront(i + 1);
-            else myLinkedList.AddBack(i + 1);
+            if (i % 2 == 0) myLinkedList.AddFirst(i + 1);
+            else myLinkedList.AddLast(i + 1);
             
             Console.WriteLine(string.Join(" <-> ", myLinkedList.ToArray())); 
         }
@@ -51,8 +51,8 @@ class Program
         
         for (int i = 0; i < 20; i++)
         {
-            if (i % 2 == 0) Console.WriteLine($"Removed {myLinkedList.RemoveFront} from the front");
-            else Console.WriteLine($"Removed {myLinkedList.RemoveBack()} from the back");
+            if (i % 2 == 0) Console.WriteLine($"Removed {myLinkedList.RemoveFirst} from the front");
+            else Console.WriteLine($"Removed {myLinkedList.RemoveLast()} from the back");
 
             Console.WriteLine(string.Join(" <-> ", myLinkedList.ToArray()));
         }

@@ -1,25 +1,24 @@
-namespace Workshop.List;
+namespace CustomDoublyLinkedList;
 
-public class MyList
+public class MyList<TValue>
 {
     private const int DefaultCapacity = 4;
  
-    private int[] _buffer;
+    private TValue[] _buffer;
     private int _count;
- 
+    public int Count => this._count;
+
     public MyList() : this(DefaultCapacity)
     {
     }
  
     public MyList(int capacity)
     {
-        this._buffer = new int[capacity];
+        this._buffer = new TValue[capacity];
         this._count = 0;
     }
- 
-    public int Count => this._count;
- 
-    public int this[int index]
+    
+    public TValue this[int index]
     {
         get
         {
@@ -33,7 +32,7 @@ public class MyList
         }
     }
  
-    public void Add(int value)
+    public void Add(TValue value)
     {
         this.GrowIfNecessary();
  
@@ -41,7 +40,7 @@ public class MyList
         this._count++;
     }
  
-    public void Insert(int index, int value)
+    public void Insert(int index, TValue value)
     {
         if (index == this.Count) this.Add(value);
         else
@@ -78,7 +77,7 @@ public class MyList
     {
         if (this.Count != this._buffer.Length) return;
  
-        int[] newBuffer = new int[this._buffer.Length * 2];
+        TValue[] newBuffer = new TValue[this._buffer.Length * 2];
         Array.Copy(this._buffer, newBuffer, this._buffer.Length);
         this._buffer = newBuffer;
     }
