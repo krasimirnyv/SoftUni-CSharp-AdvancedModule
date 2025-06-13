@@ -1,6 +1,8 @@
+using System.Collections;
+
 namespace Workshop.StackAndQueue;
 
-public class MyStack<TValue>
+public class MyStack<TValue> : IEnumerable<TValue>
 {
     private const int DefaultCapacity = 4;
  
@@ -41,14 +43,17 @@ public class MyStack<TValue>
         return poppedValue;
     }
  
-    public TValue[] ToArray()
+    public IEnumerator<TValue> GetEnumerator()
     {
-        TValue[] result = new TValue[this._count];
-        Array.Copy(this._buffer, result, this._count);
-        Array.Reverse(result);
-        return result;
+        for (int i = this._count - 1; i >= 0; i--)
+        {
+            yield return this._buffer[i];
+        }
     }
- 
+
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    
+    
     private void ValidateNotEmpty()
     {
         if (this._count == 0)

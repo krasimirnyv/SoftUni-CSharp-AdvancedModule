@@ -1,6 +1,8 @@
+using System.Collections;
+
 namespace Workshop.StackAndQueue;
 
-public class MyQueue<TValue>
+public class MyQueue<TValue> : IEnumerable<TValue>
 {
     private const int DefaultCapacity = 4;
  
@@ -43,26 +45,24 @@ public class MyQueue<TValue>
  
         return removedVal;
     }
- 
-    public TValue[] ToArray()
+    
+    public void Clear()
     {
-        TValue[] result = new TValue[this._count];
- 
+        Array.Clear(this._buffer);
+        this._start = 0; 
+        this._count = 0;
+    }
+    
+    public IEnumerator<TValue> GetEnumerator()
+    {
         for (int i = 0; i < this._count; i++)
-            result[i] = this._buffer[GetBufferIndex(i)];
- 
-        return result;
+        {
+            yield return this._buffer[this.GetBufferIndex(i)];
+        }
     }
- 
-    private int GetBufferIndex(int offset)
-        => (this._start + offset) % this._buffer.Length;
- 
-    private void ValidateNotEmpty()
-    {
-        if (this._count == 0)
-            throw new InvalidOperationException("The requested operation cannot be executed because the queue is empty.");
-    }
- 
+
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    
     private void GrowIfNecessary()
     {
         if (this._count < this._buffer.Length) return;
@@ -75,5 +75,14 @@ public class MyQueue<TValue>
  
         this._buffer = newBuffer;
         this._start = 0;
+    }
+    
+    private int GetBufferIndex(int offset)
+        => (this._start + offset) % this._buffer.Length;
+ 
+    private void ValidateNotEmpty()
+    {
+        if (this._count == 0)
+            throw new InvalidOperationException("The requested operation cannot be executed because the queue is empty.");
     }
 }

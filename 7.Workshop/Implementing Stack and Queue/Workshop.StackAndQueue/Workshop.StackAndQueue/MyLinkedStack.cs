@@ -1,6 +1,8 @@
+using System.Collections;
+
 namespace Workshop.StackAndQueue;
 
-public class MyLinkedStack<TValue>
+public class MyLinkedStack<TValue> : IEnumerable<TValue>
 {
     private readonly MyLinkedStackNode<TValue> _begin = new MyLinkedStackNode<TValue>();
     private int _count;
@@ -32,17 +34,18 @@ public class MyLinkedStack<TValue>
  
         return poppedValue;
     }
- 
-    public TValue[] ToArray()
+    
+    public IEnumerator<TValue> GetEnumerator()
     {
-        TValue[] result = new TValue[this._count];
- 
-        MyLinkedStackNode<TValue> iter = this._begin.Next;
-        for (int i = 0; i < this._count; i++, iter = iter.Next)
-            result[i] = iter.Value;
- 
-        return result;
+        MyLinkedStackNode<TValue> iterator = this._begin.Next;
+        for (int i = 0; i < this._count; i++, iterator = iterator.Next)
+        {
+            yield return iterator.Value;
+        }
     }
+
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    
  
     private void ValidateNotEmpty()
     {

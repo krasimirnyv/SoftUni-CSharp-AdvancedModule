@@ -1,6 +1,8 @@
+using System.Collections;
+
 namespace Workshop.StackAndQueue;
 
-public class MyLinkedQueue<TValue>
+public class MyLinkedQueue<TValue> : IEnumerable<TValue>
 {
     private readonly MyLinkedQueueNode<TValue> _begin;
     private MyLinkedQueueNode<TValue> _end;
@@ -45,17 +47,17 @@ public class MyLinkedQueue<TValue>
  
         return removedValue;
     }
- 
-    public TValue[] ToArray()
+    
+    public IEnumerator<TValue> GetEnumerator()
     {
-        TValue[] result = new TValue[this._count];
- 
         MyLinkedQueueNode<TValue> iter = this._begin.Next;
         for (int i = 0; i < this._count; i++, iter = iter.Next)
-            result[i] = iter.Value;
- 
-        return result;
+        {
+            yield return iter.Value;
+        }
     }
+
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
  
     private void ValidateNotEmpty()
     {
