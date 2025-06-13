@@ -1,4 +1,4 @@
-﻿namespace CustomDoublyLinkedList;
+﻿namespace Workshop.List;
 
 public class StartUp
 {

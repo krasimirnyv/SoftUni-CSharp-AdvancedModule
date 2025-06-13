@@ -1,14 +1,16 @@
-namespace CustomDoublyLinkedList;
+using System.Collections;
 
-public class DoublyLinkedList<TValue>
+namespace Workshop.List;
+
+public class DoublyLinkedList<TValue> : IEnumerable<TValue>
 {
-    private DoublyLinkedListNode<TValue> _front, _back;
+    private MyLinkedListNode<TValue> _front, _back;
     private int _count;
     public int Count => this._count;
  
     public void AddFirst(TValue value)
     {
-        DoublyLinkedListNode<TValue> newNode = new DoublyLinkedListNode<TValue> { Value = value, Next = this._front };
+        MyLinkedListNode<TValue> newNode = new MyLinkedListNode<TValue> { Value = value, Next = this._front };
  
         if (this._count == 0) this._back = newNode;
         else this._front.Prev = newNode;
@@ -19,7 +21,7 @@ public class DoublyLinkedList<TValue>
  
     public void AddLast(TValue value)
     {
-        DoublyLinkedListNode<TValue> newNode = new DoublyLinkedListNode<TValue> { Value = value, Prev = this._back };
+        MyLinkedListNode<TValue> newNode = new MyLinkedListNode<TValue> { Value = value, Prev = this._back };
  
         if (this._count == 0) this._front = newNode;
         else this._back.Next = newNode;
@@ -35,7 +37,7 @@ public class DoublyLinkedList<TValue>
         TValue removedValue = this._front.Value;
         this._front.Value = default;
  
-        DoublyLinkedListNode<TValue> nextFront = this._front.Next;
+        MyLinkedListNode<TValue> nextFront = this._front.Next;
         this._front.Next = null;
  
         if (this._count == 1) this._back = null;
@@ -54,7 +56,7 @@ public class DoublyLinkedList<TValue>
         TValue removedValue = this._back.Value;
         this._back.Value = default;
  
-        DoublyLinkedListNode<TValue> nextBack = this._back.Prev;
+        MyLinkedListNode<TValue> nextBack = this._back.Prev;
         this._back.Prev = null;
  
         if (this._count == 1) this._front = null;
@@ -81,33 +83,23 @@ public class DoublyLinkedList<TValue>
     public TValue Get(int index)
     {
         this.ValidateIndex(index);
-        return Iterate(index).Value;
+        return this.Skip(index).First();
     }
     
     public TValue this[int index] => Get(index);
-
-    public TValue[] ToArray()
-    {
-        TValue[] arr = new TValue[this._count];
-        Iterate(this._count, (val, idx) => arr[idx] = val);
-        return arr;
-    }
     
-    public void ForEach(Action<TValue> action)
-        => this.Iterate(this._count, (val, _) => action(val));
-    
-    public DoublyLinkedListNode<TValue> Iterate(int ops, Action<TValue, int>? action = null)
+    public IEnumerator<TValue> GetEnumerator()
     {
-        DoublyLinkedListNode<TValue> iter = this._front;
-        for (int i = 0; i < ops; i++)
+        MyLinkedListNode<TValue> iterator = this._front;
+        for (int i = 0; i < this._count; i++)
         {
-            action?.Invoke(iter.Value, i);
-            iter = iter.Next;
+            yield return iterator.Value;
+            iterator = iterator.Next;
         }
- 
-        return iter;
     }
- 
+
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    
     public void ValidateNotEmpty()
     {
         if (this._count == 0) throw new InvalidOperationException("Cannot execute the requested operation because the linked list is empty.");
@@ -120,9 +112,9 @@ public class DoublyLinkedList<TValue>
     }
 }
  
-public class DoublyLinkedListNode<TValue>
+public class MyLinkedListNode<TValue>
 {
     public TValue Value { get; set; }
-    public DoublyLinkedListNode<TValue> Prev { get; set; }
-    public DoublyLinkedListNode<TValue> Next { get; set; }
+    public MyLinkedListNode<TValue> Prev { get; set; }
+    public MyLinkedListNode<TValue> Next { get; set; }
 }

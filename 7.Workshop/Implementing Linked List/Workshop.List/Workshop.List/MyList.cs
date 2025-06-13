@@ -1,6 +1,8 @@
-namespace CustomDoublyLinkedList;
+using System.Collections;
 
-public class MyList<TValue>
+namespace Workshop.List;
+
+public class MyList<TValue> : IEnumerable<TValue>
 {
     private const int DefaultCapacity = 4;
  
@@ -66,6 +68,16 @@ public class MyList<TValue>
         this._buffer[this._count - 1] = default;
         this._count--;
     }
+    
+    public IEnumerator<TValue> GetEnumerator()
+    {
+        for (int i = 0; i < this._count; i++)
+        {
+            yield return this._buffer[i];
+        }
+    }
+
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
  
     private void ValidateIndex(int index)
     {
