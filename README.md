@@ -10,6 +10,8 @@
 
 **Tasks:**
 
+0. Algorithms
+
 1. Stack and Queues
 
 2. Multidimensional Arrays
@@ -23,7 +25,7 @@
 6. Defining Classes
 
 7. Workshops
-- Implementing Linked List
+- Implementing List and Linked List
 - Implementing Stack and Queue
 
 8. Generics
